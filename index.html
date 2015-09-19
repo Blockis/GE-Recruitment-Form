@@ -3,6 +3,8 @@
 <head>
   <!--Import Google Icon Font-->
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
 
@@ -22,14 +24,10 @@
   <div class="row">
   <div class="col s12 m12">
     <div class="card white">
-      <div class="row valign-wrapper">
-            <div class="col s2">
-              <img src="images/ge.png" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-            </div>
-            <div class="col s10">
-              <span class="black-text">
-                This is a square image. Add the "circle" class to it to make it appear circular.
-              </span>
+      <div class="row valign-wrapper center-align" style="margin-bottom: 0px;">
+            <div class="col s12 m12 black-text" style="font-weight: 400; font-size: 32px;">
+                <img src="images/ge.png" alt="" style="height: 80px; vertical-align: middle;">
+                <span>GE Software</span>
             </div>
           </div>
       <div class="card-action">
@@ -40,13 +38,13 @@
             <!-- 50% Div -->
             <div class="input-field col s6">
               <!-- Field: First Name -->
-              <input id="first_name" type="text" class="validate">
+              <input id="first_name" type="text" class="validate" required="">
               <label for="first_name">First Name</label>
             </div>
             <!-- 50% Div -->
             <div class="input-field col s6">
               <!-- Field: Last Name -->
-              <input id="last_name" type="text" class="validate">
+              <input id="last_name" type="text" class="validate" required="">
               <label for="last_name">Last Name</label>
             </div>
           </div>
@@ -55,34 +53,44 @@
             <!-- 50% Div -->
             <div class="input-field col s6">
               <!-- Field: College -->
-              <input id="school" type="text" class="validate">
+              <input id="school" type="text" class="validate" required="">
               <label for="school">College</label>
             </div>
             <!-- 50% Div -->
             <div class="input-field col s6">
               <!-- Field: Interested In -->
-              <select id="year">
+              <select id="year" required="">
                 <option value="" disabled selected>I am a...</option>
                 <option value="1">Freshman</option>
                 <option value="2">Sophomore</option>
                 <option value="3">Junior</option>
                 <option value="4">Senior</option>
               </select>
-              <label for="year">Year</label>
+              <label for="year">Grade</label>
             </div>
           </div>
           <div class="row">
-          <div class="input-field col s12">
-          <input id="email" type="email" class="validate">
-          <label for="email" data-error="Invalid Email!" data-success="Valid Email!" style="width: 200px;">Email</label>
-          </div>
+            <div class="input-field col s12">
+              <select id="job" required>
+                <option value="" disabled selected>I am interested in...</option>
+                <option value="1">Internship</option>
+                <option value="2">Full Time</option>
+              </select>
+              <label for="job">What Job Opportunities Are You Interested In?</label>
+            </div>
           </div>
           <div class="row">
-          <div class="input-field col s12">
-            <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
-              <i class="material-icons right">send</i>
-            </button>
+            <div class="input-field col s12">
+              <input id="email" type="email" class="validate" required="">
+              <label for="email" data-error="Invalid Email!" data-success="Valid Email!" style="width: 200px;">Email</label>
+            </div>
           </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
           </div>
         </form>
       </div>
