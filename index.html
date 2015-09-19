@@ -17,9 +17,9 @@
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-    $('select').material_select();
-});
-    </script>
+      $('select').material_select();
+    });
+  </script>
   <div class="container">
   <div class="row">
   <div class="col s12 m12">
@@ -32,7 +32,7 @@
           </div>
       <div class="card-action">
         <!-- Sign-up Form -->
-        <form id="info-form" class="col s12" method="post" target="">
+        <form id="info-form" class="col s12">
           <!-- First Row Of Data (First, Last Name) -->
           <div class="row">
             <!-- 50% Div -->
@@ -96,37 +96,39 @@
         <script type="text/javascript">
 
           $('#info-form').submit(function(e) {
+            // NECESSARY SO FORM DOESN'T AUTO SUBMIT OR SOMETHING
+            e.preventDefault();
 
-              //get data from form
-              var formData = {
-                  firstName: $("#first_name").val(),
-                  lastName: $("#last_name").val(),
-                  college: $("#school").val(),
-                  grade: $("#year").val(),
-                  email: $("#email").val(),
-                  jobInterest: $("#job").val()
-              };
+            //get data from form
+            var formData = {
+                firstName: $("#first_name").val(),
+                lastName: $("#last_name").val(),
+                college: $("#school").val(),
+                grade: $("#year").val(),
+                email: $("#email").val(),
+                jobInterest: $("#job").val()
+            };
 
-              console.log(data);
+            console.log(formData);
 
-              $.ajax({
-                type: "POST",
-                beforeSend: function(request) {
-                  request.setRequestHeader("X-Parse-Application-Id", '');
-                  request.setRequestHeader("X-Parse-REST-API-Key", '');
-                  request.setRequestHeader("Content-Type", "application/json");
-                },
-                url: 'https://api.parse.com/1/classes/contact',
-                data: formData,
-                success: function(data) {
-                  console.log(jQuery.parseJSON(data));
-                },
-                error: function(data) {
-                  var obj = jQuery.parseJSON(data);
-                  alert(obj.error);
-                }
-              });
-
+            $.ajax({
+              type: "POST",
+              beforeSend: function(request) {
+                request.setRequestHeader("X-Parse-Application-Id", '');
+                request.setRequestHeader("X-Parse-REST-API-Key", '');
+                request.setRequestHeader("Content-Type", "application/json");
+              },
+              url: 'https://api.parse.com/1/classes/contact',
+              data: JSON.stringify(formData),
+              success: function(data) {
+                console.log(data);
+                console.log("SUCCESS");
+              },
+              error: function(data) {
+                console.log(data)
+                console.log("ERROR");
+              }
+            });
           });
         </script>
 
