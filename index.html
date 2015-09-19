@@ -32,7 +32,7 @@
           </div>
       <div class="card-action">
         <!-- Sign-up Form -->
-        <form class="col s12">
+        <form id="info-form" class="col s12" method="post" target="">
           <!-- First Row Of Data (First, Last Name) -->
           <div class="row">
             <!-- 50% Div -->
@@ -93,6 +93,43 @@
             </div>
           </div>
         </form>
+        <script type="text/javascript">
+
+          $('#info-form').submit(function(e) {
+
+              //get data from form
+              var formData = {
+                  firstName: $("#first_name").val(),
+                  lastName: $("#last_name").val(),
+                  college: $("#school").val(),
+                  grade: $("#year").val(),
+                  email: $("#email").val(),
+                  jobInterest: $("#job").val()
+              };
+
+              console.log(data);
+
+              $.ajax({
+                type: "POST",
+                beforeSend: function(request) {
+                  request.setRequestHeader("X-Parse-Application-Id", '');
+                  request.setRequestHeader("X-Parse-REST-API-Key", '');
+                  request.setRequestHeader("Content-Type", "application/json");
+                },
+                url: 'https://api.parse.com/1/classes/contact',
+                data: formData,
+                success: function(data) {
+                  console.log(jQuery.parseJSON(data));
+                },
+                error: function(data) {
+                  var obj = jQuery.parseJSON(data);
+                  alert(obj.error);
+                }
+              });
+
+          });
+        </script>
+
       </div>
     </div>
   </div>
