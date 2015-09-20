@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--Import Google Icon Font-->
+  <!-- Import Google Icon Font-->
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
-  <!--Import materialize.css-->
+  <!-- Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
 
-  <!--Let browser know website is optimized for mobile-->
+  <!-- Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-  <!--Import jQuery before materialize.js-->
+  <!-- Import jQuery before materialize.js-->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('select').material_select();
-    });
-  </script>
+
+  <!-- Import stuff to intialize, like Materialize Select -->
+  <script type="text/javascript" src="js/init.js"></script>
+
   <div class="container">
   <div class="row">
   <div class="col s12 m12">
@@ -59,7 +58,7 @@
             <!-- 50% Div -->
             <div class="input-field col s6">
               <!-- Field: Interested In -->
-              <select id="year" required="">
+              <select id="year">
                 <option value="" disabled selected>I am a...</option>
                 <option value="Freshman">Freshman</option>
                 <option value="Sophomore">Sophomore</option>
@@ -71,7 +70,7 @@
           </div>
           <div class="row">
             <div class="input-field col s12">
-              <select id="job" required>
+              <select id="job">
                 <option value="" disabled selected>I am interested in...</option>
                 <option value="Internship">Internship</option>
                 <option value="Full Time">Full Time</option>
@@ -93,50 +92,65 @@
             </div>
           </div>
         </form>
-        <script type="text/javascript">
-
-          $('#info-form').submit(function(e) {
-            // NECESSARY SO FORM DOESN'T AUTO SUBMIT OR SOMETHING
-            e.preventDefault();
-
-            //get data from form
-            var formData = {
-                firstName: $("#first_name").val(),
-                lastName: $("#last_name").val(),
-                college: $("#school").val(),
-                grade: $("#year").val(),
-                email: $("#email").val(),
-                jobInterest: $("#job").val()
-            };
-
-            console.log(formData);
-
-            $.ajax({
-              type: "POST",
-              beforeSend: function(request) {
-                request.setRequestHeader("X-Parse-Application-Id", '');
-                request.setRequestHeader("X-Parse-REST-API-Key", '');
-                request.setRequestHeader("Content-Type", "application/json");
-              },
-              url: 'https://api.parse.com/1/classes/contact',
-              data: JSON.stringify(formData),
-              success: function(data) {
-                console.log(data);
-                console.log("SUCCESS");
-              },
-              error: function(data) {
-                console.log(data)
-                console.log("ERROR");
-              }
-            });
-          });
-        </script>
-
+        <div class="row">
+          <!-- Modal Structure -->
+          <div id="confirmation" class="modal">
+            <div class="modal-content">
+              <h4>Thank You!</h4>
+              <p>Your details have been entered into our system!
+              <br /><br />We'll be in contact shortly!</p>
+            </div>
+            <div class="modal-footer">
+              <a href=".." class=" modal-action modal-close waves-effect waves-gray btn-flat">Dismiss</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   </div>
   </div>
 </div>
+<script type="text/javascript">
+  $('#info-form').submit(function(e) {
+  // Prevents default values being submitted (like the dropdown fields)
+  e.preventDefault();
+
+  // Populate array of data
+  var formData = {
+      firstName: $("#first_name").val(),
+      lastName: $("#last_name").val(),
+      college: $("#school").val(),
+      grade: $("#year").val(),
+      email: $("#email").val(),
+      jobInterest: $("#job").val()
+  };
+
+  // Log the data
+  console.log(formData);
+
+  $.ajax({
+    type: "POST",
+    beforeSend: function(request) {
+      request.setRequestHeader("X-Parse-Application-Id", 'qRg0qM3LDWCCSSeamC0FHOlFXIccGcykSnBbeX5E');
+      request.setRequestHeader("X-Parse-REST-API-Key", 'CjLDA2rgYDHWhBRxI1VuZXn34liHECrorC7roM8c');
+      request.setRequestHeader("Content-Type", "application/json");
+    },
+    url: 'https://api.parse.com/1/classes/contact',
+    data: JSON.stringify(formData),
+    success: function(data) {
+      // Successfully posted the JSON to Parse
+      console.log(data);
+      $('#confirmation').openModal();
+      console.log("SUCCESS");
+    },
+    error: function(data) {
+      // Errors posting the JSON to Parse
+      console.log(data)
+      console.log("ERROR");
+    }
+  });
+});
+</script>
 </body>
 </html>
